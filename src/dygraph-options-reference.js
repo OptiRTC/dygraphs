@@ -867,6 +867,12 @@ OPTIONS_REFERENCE =  // <JSON>
     "labels": ["Axis display"],
     "type": "Array<number>[2]",
     "description": "Sets the absolute maximum and minimum range beyond which the axis will never scale"
+  },
+  "lookAhead": {
+    "default": "true",
+    "type": "boolean",
+    "labels": ["Legend"],
+    "description": "Consider points both ahead and behind the current mouse location when selecting rows."
   }
 }
 ;  // </JSON>
