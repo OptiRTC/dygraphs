@@ -2609,6 +2609,60 @@ Dygraph.prototype.computeYAxisRanges_ = function(extremes) {
           if (maxAxisY > 0 && maxY <= 0) maxAxisY = 0;
         }
       }
+
+      var minRange = this.getOptionForAxis("minRange", i);
+      var [absoluteMin, absoluteMax] = this.getOptionForAxis("absoluteValueRange", i) || [null, null];
+      absoluteMin = typeof absoluteMin !== 'number' || isNaN(absoluteMin) ? null : absoluteMin;
+      absoluteMax = typeof absoluteMax !== 'number' || isNaN(absoluteMax) ? null : absoluteMax;
+
+      if (minRange !== null && maxAxisY - minAxisY < minRange) {
+        var fixedMin = axis.valueRange && axis.valueRange[0] !== null;
+        var fixedMax = axis.valueRange && axis.valueRange[1] !== null;
+        var distance = minRange - (maxAxisY - minAxisY);
+        if (!fixedMin && !fixedMax) {
+          minAxisY -= distance/2;
+          maxAxisY += distance/2;
+        } else if (!fixedMin) {
+          minAxisY -= distance;
+        } else if (!fixedMax) {
+          maxAxisY += distance;
+        }
+
+        var distanceToMakeup = 0;
+        if (absoluteMin !== null && minAxisY < absoluteMin) {
+          distanceToMakeup += absoluteMin - minAxisY;
+          minAxisY = absoluteMin;
+        }
+
+        if (absoluteMax !== null && maxAxisY > absoluteMax) {
+          distanceToMakeup += maxAxisY - absoluteMax;
+          maxAxisY = absoluteMax;
+        }
+
+        if (distanceToMakeup > 0) {
+          var distanceToAdjust;
+          if (absoluteMin === null || minAxisY > absoluteMin) {
+            distanceToAdjust = absoluteMin === null ? distanceToMakeup : Math.min(minAxisY - absoluteMin, distanceToMakeup);
+            distanceToMakeup -= distanceToAdjust;
+            minAxisY -= distanceToAdjust;
+          }
+
+          if (absoluteMax === null || maxAxisY < absoluteMax) {
+            distanceToAdjust = absoluteMax === null ? distanceToMakeup : Math.min(absoluteMax - maxAxisY, distanceToMakeup);
+            distanceToMakeup -= distanceToAdjust;
+            maxAxisY += distanceToAdjust;
+          }
+        }
+      } else {
+        if (absoluteMin !== null) {
+          minAxisY = Math.max(minAxisY, absoluteMin);
+        }
+
+        if (absoluteMax !== null) {
+          maxAxisY = Math.min(maxAxisY, absoluteMax);
+        }
+      }
+
       axis.extremeRange = [minAxisY, maxAxisY];
     }
     if (axis.valueWindow) {

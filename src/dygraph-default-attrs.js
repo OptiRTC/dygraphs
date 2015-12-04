@@ -119,7 +119,8 @@ var DEFAULT_ATTRS = {
       drawGrid: true,
       drawAxis: true,
       independentTicks: true,
-      ticker: DygraphTickers.numericTicks
+      ticker: DygraphTickers.numericTicks,
+      minRange: null
     },
     y2: {
       axisLabelWidth: 50,
@@ -129,7 +130,8 @@ var DEFAULT_ATTRS = {
       drawAxis: true,  // only applies when there are two axes of data.
       drawGrid: false,
       independentTicks: false,
-      ticker: DygraphTickers.numericTicks
+      ticker: DygraphTickers.numericTicks,
+      minRange: null
     }
   },
 

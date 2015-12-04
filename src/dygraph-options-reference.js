@@ -855,6 +855,18 @@ OPTIONS_REFERENCE =  // <JSON>
     ],
     "returns": "Array<points>",
     "description": "This function is called every time the selection changes. Its return value is used as the set of selected points for highlighting, reporting legend values, etc."
+  },
+  "minRange": {
+    "default": "null",
+    "labels": ["Axis display"],
+    "type": "number",
+    "description": "The minimum range of for an axis "
+  },
+  "absoluteValueRange": {
+    "default": "null",
+    "labels": ["Axis display"],
+    "type": "Array<number>[2]",
+    "description": "Sets the absolute maximum and minimum range beyond which the axis will never scale"
   }
 }
 ;  // </JSON>
