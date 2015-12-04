@@ -3321,7 +3321,7 @@ Dygraph.prototype.visibility = function() {
  *
  * @param {number|number[]|object} num the series index or an array of series indices
  *                                     or a boolean array of visibility states by index
- *                                     or an object mapping series numbers, as keys, to 
+ *                                     or an object mapping series numbers, as keys, to
  *                                     visibility state (boolean values)
  * @param {boolean} value the visibility state expressed as a boolean
  */
