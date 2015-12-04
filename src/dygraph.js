@@ -1540,6 +1540,7 @@ Dygraph.prototype.eventToDomCoords = function(event) {
  * @private
  */
 Dygraph.prototype.findClosestRow = function(domX) {
+  var lookAhead = this.getBooleanOption('lookAhead');
   var minDistX = Infinity;
   var closestRow = -1;
   var sets = this.layout_.points;
@@ -1549,10 +1550,18 @@ Dygraph.prototype.findClosestRow = function(domX) {
     for (var j = 0; j < len; j++) {
       var point = points[j];
       if (!utils.isValidPoint(point, true)) continue;
-      var dist = Math.abs(point.canvasx - domX);
-      if (dist < minDistX) {
-        minDistX = dist;
-        closestRow = point.idx;
+      if (lookAhead) {
+        var dist = Math.abs(point.canvasx - domX);
+        if (dist < minDistX) {
+          minDistX = dist;
+          closestRow = point.idx;
+        }
+      } else {
+        var dist = domX - point.canvasx;
+        if (dist >= 0 && dist < minDistX) {
+          minDistX = dist;
+          closestRow = point.idx;
+        }
       }
     }
   }

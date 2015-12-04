@@ -89,6 +89,8 @@ var DEFAULT_ATTRS = {
   rangeSelectorAlpha: 0.6,
   showInRangeSelector: null,
 
+  lookAhead: true,
+
   // The ordering here ensures that central lines always appear above any
   // fill bars/error bars.
   plotter: [
