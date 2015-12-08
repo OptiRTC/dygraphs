@@ -519,8 +519,9 @@ Dygraph.prototype.xAxisExtremes = function() {
   if (this.numRows() === 0) {
     return [0 - pad, 1 + pad];
   }
-  var left = this.rawData_[0][0];
-  var right = this.rawData_[this.rawData_.length - 1][0];
+  var xRange = this.getOptionForAxis('valueRange', 'x') || [];
+  var left = xRange[0] || this.rawData_[0][0];
+  var right = xRange[1] || this.rawData_[this.rawData_.length - 1][0];
   if (pad) {
     // Must keep this in sync with dygraph-layout _evaluateLimits()
     var range = right - left;
