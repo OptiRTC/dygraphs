@@ -182,8 +182,8 @@ Dygraph.prototype.__init__ = function(div, file, attrs) {
   // These will be zero if the dygraph's div is hidden. In that case,
   // use the user-specified attributes if present. If not, use zero
   // and assume the user will call resize to fix things later.
-  this.width_ = div.clientWidth || attrs.width || 0;
-  this.height_ = div.clientHeight || attrs.height || 0;
+  this.width_ = attrs.width || div.clientWidth || 0;
+  this.height_ = attrs.height || div.clientHeight || 0;
 
   // TODO(danvk): set fillGraph to be part of attrs_ here, not user_attrs_.
   if (attrs.stackedGraph) {
