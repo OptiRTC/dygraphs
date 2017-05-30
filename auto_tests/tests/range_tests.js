@@ -253,15 +253,6 @@ it('testHugeRange', function() {
 });
 
 /**
- * Verify old-style avoidMinZero option.
- */
-it('testAvoidMinZero', function() {
-  var g = createGraph({
-      avoidMinZero: true,
-    }, ZERO_TO_FIFTY_STEPS, [10, 20], [-5, 55]);
-});
-
-/**
  * Verify ranges with user-specified padding, implicit avoidMinZero.
  */
 it('testPaddingAuto', function() {
@@ -342,24 +333,7 @@ it('testLogscalePad', function() {
       yRangePad: 30
     },
     [[-10, 10], [10, 10], [30, 1000]],
-    [-10, 30], [5.01691, 1993.25801]);
-});
-
-/**
- * Verify scrolling all-zero region, traditional.
- */
-it('testZeroScroll', function() {
-  var g = new Dygraph(
-      document.getElementById("graph"),
-      "X,Y\n" +
-      "1,0\n" +
-      "8,0\n" +
-      "9,0.1\n",
-      {
-        drawAxesAtZero: true,
-        animatedZooms: true,
-        avoidMinZero: true
-      });
+    [-10, 30], [5.623, 1778.279]);
 });
 
 /**
