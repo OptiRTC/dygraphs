@@ -5,3 +5,5 @@ env
 dist
 coverage
 *.log
+*.pyc
+src-es5

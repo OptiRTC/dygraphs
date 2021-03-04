@@ -40,7 +40,7 @@ Dygraph.prototype.isZoomed;
 /** @type {function(): string} */
 Dygraph.prototype.toString;
 
-/** @type {function(string, string)} */
+/** @type {function(string, string=)} */
 Dygraph.prototype.getOption;
 
 /** @type {function(): number} */
@@ -59,7 +59,7 @@ Dygraph.prototype.yAxisRange;
 Dygraph.prototype.yAxisRanges;
 
 /** @type {function(?number, ?number, ?number): Array.<?number>} */
-Dygraph.prototype.toDomCoords
+Dygraph.prototype.toDomCoords;
 
 /** @type {function(?number): ?number} */
 Dygraph.prototype.toDomXCoord;
@@ -127,7 +127,7 @@ Dygraph.prototype.isSeriesLocked;
 /** @type {function(): number} */
 Dygraph.prototype.numAxes;
 
-/** @type {function(Object, Boolean=)} */
+/** @type {function(Object, boolean=)} */
 Dygraph.prototype.updateOptions;
 
 /** @type {function(number, number)} */
@@ -142,7 +142,7 @@ Dygraph.prototype.visibility;
 /** @type {function(number, boolean)} */
 Dygraph.prototype.setVisibility;
 
-/** @type {function(Array.<Object>, boolean)} */
+/** @type {function(Array.<Object>, boolean=)} */
 Dygraph.prototype.setAnnotations;
 
 /** @type {function(): Array.<Object>} */
