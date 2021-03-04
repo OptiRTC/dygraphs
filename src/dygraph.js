@@ -90,7 +90,7 @@ var Dygraph = function(div, data, opts) {
 };
 
 Dygraph.NAME = "Dygraph";
-Dygraph.VERSION = "2.0.0";
+Dygraph.VERSION = "2.1.0";
 
 // Various default values
 Dygraph.DEFAULT_ROLL_PERIOD = 1;
@@ -863,7 +863,9 @@ Dygraph.prototype.resizeElements_ = function() {
   this.graphDiv.style.width = this.width_ + "px";
   this.graphDiv.style.height = this.height_ + "px";
 
-  var canvasScale = utils.getContextPixelRatio(this.canvas_ctx_);
+  var pixelRatioOption = this.getNumericOption('pixelRatio')
+
+  var canvasScale = pixelRatioOption || utils.getContextPixelRatio(this.canvas_ctx_);
   this.canvas_.width = this.width_ * canvasScale;
   this.canvas_.height = this.height_ * canvasScale;
   this.canvas_.style.width = this.width_ + "px";    // for IE
@@ -872,7 +874,7 @@ Dygraph.prototype.resizeElements_ = function() {
     this.canvas_ctx_.scale(canvasScale, canvasScale);
   }
 
-  var hiddenScale = utils.getContextPixelRatio(this.hidden_ctx_);
+  var hiddenScale = pixelRatioOption || utils.getContextPixelRatio(this.hidden_ctx_);
   this.hidden_.width = this.width_ * hiddenScale;
   this.hidden_.height = this.height_ * hiddenScale;
   this.hidden_.style.width = this.width_ + "px";    // for IE
@@ -2656,10 +2658,7 @@ Dygraph.prototype.detectTypeFromString_ = function(str) {
       str.indexOf('/') >= 0 ||
       isNaN(parseFloat(str))) {
     isDate = true;
-  } else if (str.length == 8 && str > '19700101' && str < '20371231') {
-    // TODO(danvk): remove support for this format.
-    isDate = true;
-  }
+  } 
 
   this.setXAxisOptions_(isDate);
 };
@@ -3151,6 +3150,7 @@ Dygraph.prototype.updateOptions = function(input_attrs, block_redraw) {
   // copyUserAttrs_ drops the "file" parameter as a convenience to us.
   var file = input_attrs.file;
   var attrs = Dygraph.copyUserAttrs_(input_attrs);
+  var prevNumAxes = this.attributes_.numAxes();
 
   // TODO(danvk): this is a mess. Move these options into attr_.
   if ('rollPeriod' in attrs) {
@@ -3174,6 +3174,7 @@ Dygraph.prototype.updateOptions = function(input_attrs, block_redraw) {
 
   this.attributes_.reparseSeries();
 
+  if (prevNumAxes < this.attributes_.numAxes()) this.plotter_.clear();
   if (file) {
     // This event indicates that the data is about to change, but hasn't yet.
     // TODO(danvk): support cancellation of the update via this event.
